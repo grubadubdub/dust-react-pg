@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Purr Rentals</title>
-    <link rel="stylesheet" href="public/css/bootstrap.css">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <div class="container">
@@ -13,10 +13,7 @@
             </div>
         </div>
     </div>
-    <script
-          src="https://code.jquery.com/jquery-3.4.1.js"
-          integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-          crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/html" src="js/bootstrap.js"></script>
   </body>
 </html>
