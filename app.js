@@ -4,14 +4,13 @@ var express = require('express'),
 	cons = require('consolidate'),
 	dust = require('dustjs-helpers'),
 	pg = require('pg'),
-	app = express();
+	app = express()
 
 // DB connect string with client
 var connect = "postgres://sadbuns:sadsad@localhost/purr-rentals-db"
-var client = new pg.Client(connect, function(err, client, done) {
-	if (err) {
-		console.log(err)
-	}
+
+var pool = new pg.Pool({
+	connectionString: connect
 })
 
 // Assign dust engine to .dust files
@@ -20,15 +19,64 @@ app.engine('dust', cons.dust)
 // Set defualt ext .dust
 app.set('view engine', 'dust')
 app.set('views', __dirname + '/views')
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Set public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body parser middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', function(req, res){
-	res.render('index')
+	// async/await - check out a client
+	(async () => {
+	  const client = await pool.connect()
+	  try {
+	    const result = await client.query('SELECT * FROM animal')
+	    res.render('index', {animal: result.rows})
+	  } finally {
+	    client.release()
+	  }
+	})().catch(e => console.log(e.stack))	
 })
+
+app.post('/animals', function (req, res, next) {
+  // async/await - check out a client
+	(async () => {
+	  const client = await pool.connect()
+	  try {
+  	let animid = Math.floor(Math.random() * 100),
+  	 clinid, bizid, packid = Math.floor(Math.random() * 100)
+	    const result = await client.query('insert into animal values ($1, $2, $3, $4, $5, $6)', [animid, req.body.name, req.body.diet, clinid, bizid, packid])
+	  } finally {
+	  	console.log(req.body)
+	  	res.redirect('/')
+	    client.release()
+	  }
+	})().catch(e => console.log(e.stack))	
+});
+
+
+// app.post('/add', function(req, res) {
+// 	console.log('asdfasdfkjlk')
+// 	// pool.connect()
+//  //  .then(client => {
+//  //  	let animid = Math.floor(Math.random() * 100),
+//  //  	 clinid, bizid, packid = Math.floor(Math.random() * 100)
+//  //  	let body = req.body
+//  //  	console.log(req.body.name)
+//   	res.redirect('/')
+//     // return client.query('insert into animal values ($1, $2, $3, $4, $5, $6)', [animid, body.name, body.diet, clinid, bizid, packid])
+//     //   .then(result => {
+//     //     // client.release()
+//     //     res.redirect('/')
+//     //   })
+//     //   .catch(e => {
+//     //     // client.release()
+//     //     console.log(e.stack)
+//     //   })
+//   // })
+// })
 
 // Server
 app.listen(3000, function(){
@@ -58,3 +106,4 @@ app.listen(3000, function(){
 // })
 
 module.exports = app
+

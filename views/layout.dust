@@ -4,6 +4,7 @@
     <title>Purr Rentals</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.0/font/css/open-iconic-bootstrap.min.css" />
   </head>
   <body>
     <div class="container">
@@ -14,6 +15,6 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/html" src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.js"></script>
   </body>
 </html>

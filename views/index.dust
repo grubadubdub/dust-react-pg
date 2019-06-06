@@ -1,4 +1,65 @@
 {>"layout" /}
 {<body}
-	THIS IS INDEX
+	<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#formModal">
+		Add animal
+	</button>
+	<br />
+	{#animal}
+		<div class="card">
+			<h4 class="card-body">{name}
+			<button class="btn btn-secondary float-right" type="button" data-toggle="collapse" data-target="#dog" aria-expanded="false" aria-controls="dog">
+    			View
+			</button>
+			</h4>
+
+			<div class="collapse" id="dog">
+			  <div class="card card-body">
+			    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+			    <br />
+			    <br />
+			    <br />
+			    <hr />
+			    <button class="btn btn-default edit-animal">
+			    	<span class="oi oi-pencil" aria-hidden="true"></span>
+			    </button>
+			    <button class="btn btn-danger delete-animal">
+			    	<span class="oi oi-trash" aria-hidden="true"></span>
+			    </button>
+			  </div>
+			</div>
+
+		</div>
+	{/animal}
+
+	<!-- ADD FORM -->
+	<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Animal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/animals" method="POST" enctype="application/x-www-form-urlencoded">
+        	<div class="form-group">
+            	<label for="username" class="col-form-label">Name:</label>
+		    	<input type="text" class="form-control" name="name"/>
+			</div>
+			<div class="form-group">
+            <label for="recipient-name" class="col-form-label">Diet: </label>
+		    	<textarea class="form-control" name="diet"></textarea>
+		    </div>	
+		      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Add" />
+      </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {/body}
+
