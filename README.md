@@ -1,6 +1,8 @@
 ### `npm install`
+to install all dependencies.
 
-To install all dependencies.
+### `npm start`
+to launch with nodemon.
 
 PostgreSQL communicates with express, entered through pooling. Landing pages are made in dust.
 
